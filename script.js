@@ -130,13 +130,14 @@ function mousePressed() {
     //press begin button or restart button pressed
     if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 120 && mouseY < height / 2 + 160) {
       screen = 5;
+      round2Setup();
       FraudAndDevices.position = createVector(width / 4 - 67, height - (height / 3) + 95);
       FraudAndComputers.position = createVector(width / 2 - 145, height - (height / 3) + 175);
       Communication.position = createVector(width / 2 - 60, height - (height / 3) + 95);
       Interception.position = createVector(width / 2 + 33, height - (height / 3) + 175);
       UnlawfulAccess.position = createVector(width / 2 + 110, height - (height / 3) + 95);
-      Cyberlaws.pos = { x: 190, y: 285 };
-      Cybercrime.pos = { x: width / 2, y: 160 + 95 };
+      //Question2Img.pos = { x: 190, y: 285 };
+
     }
   }
 
@@ -216,6 +217,16 @@ function preload() {
   CybercrimeImg = loadImage('assets/CyberLaws/1/Cybercrime.png');
   LockedComputerImg = loadImage('assets/CyberLaws/1/lockedComputer.png');
   LockedOutImg = loadImage('assets/CyberLaws/1/lockedout.png');
+
+
+
+  Question2Img = loadImage('assets/CyberLaws/2/Background.png');
+  illegalImg = loadImage('assets/CyberLaws/2/illegal_5.png');
+  involves_2Img = loadImage('assets/CyberLaws/2/Involves_2.png');
+  ProhibitsImg = loadImage('assets/CyberLaws/2/prohibitsM_3.png');
+  PossessionImg = loadImage('assets/CyberLaws/2/prohibitsP_1.png');
+  unauthorizedImg = loadImage('assets/CyberLaws/2/unauthorized_4.png');
+
 }
 
 function setup() {
@@ -304,6 +315,79 @@ function setup() {
 
 }
 
+function round2Setup() {
+  center1 = createVector(545, 160);
+  center2 = createVector(545, 220);
+  center3 = createVector(545, 285);
+  center4 = createVector(545, 350);
+  center5 = createVector(545, 415);
+
+  Cyberlaws = new Sprite(width / 2 - 80, 285);
+  Cyberlaws.addImage(Question2Img);
+  Cyberlaws.collider = 'k';
+  CyberlawsImg.resize(300, 0);
+
+  cards = new Group();
+  cards.collider = 'k';
+
+  Cybercrime = new Sprite(width / 2, 160 + 95);
+  Cybercrime.addImage(CybercrimeImg);
+  Cybercrime.collider = 'k';
+  CybercrimeImg.resize(200, 0);
+
+  lockedOut = new Sprite(width / 2, 160 + 95);
+  lockedOut.addImage(LockedOutImg);
+  lockedOut.collider = 'k';
+  //LockedOutImg.resize(200,0);
+
+
+  lockedComp = new Sprite(width / 2, 160 + 95);
+  lockedComp.addImage(LockedComputerImg);
+  lockedComp.collider = 'k';
+  //LockedComputerImg.resize(200,0);
+
+
+  FraudAndDevices = new cards.Sprite(width / 4 - 67, height - (height / 3) + 95);
+  FraudAndDevices.addImage(illegalImg);
+  FraudAndDevices.scale = 0.6;
+  cards[0] = FraudAndDevices;
+  FraudAndDevices.originalPosition = createVector(width / 4 - 67, height - (height / 3) + 95);
+
+  FraudAndComputers = new cards.Sprite((width / 2 - 145), height - (height / 3) + 175);
+  FraudAndComputers.addImage(FraudAndComputersImg);
+  FraudAndComputers.scale = 0.6;
+  cards[1] = FraudAndComputers;
+  FraudAndComputers.originalPosition = createVector(width / 2 - 145, height - (height / 3) + 175);
+
+  Communication = new cards.Sprite(width / 2 - 60, height - (height / 3) + 95);
+  Communication.addImage(CommunicationImg);
+  Communication.scale = 0.6;
+  cards[2] = Communication;
+  Communication.originalPosition = createVector(width / 2 - 60, height - (height / 3) + 95);
+
+  Interception = new cards.Sprite(width / 2 + 33, height - (height / 3) + 175);
+  Interception.addImage(InterceptionImg);
+  Interception.scale = 0.6;
+  cards[3] = Interception;
+  Interception.originalPosition = createVector(width / 2 + 33, height - (height / 3) + 175);
+
+  UnlawfulAccess = new cards.Sprite(width / 2 + 110, height - (height / 3) + 95);
+  UnlawfulAccess.addImage(UnlawfulAccessImg);
+  UnlawfulAccess.scale = 0.6;
+  cards[4] = UnlawfulAccess;
+  UnlawfulAccess.originalPosition = createVector(width / 2 + 110, height - (height / 3) + 95);
+
+
+  Communication.pos = { x: -100, y: -100 };
+  FraudAndComputers.pos = { x: -100, y: -100 };
+  FraudAndDevices.pos = { x: -100, y: -100 };
+  Interception.pos = { x: -100, y: -100 };
+  UnlawfulAccess.pos = { x: -100, y: -100 };
+  Cyberlaws.pos = { x: -200, y: -200 };
+  Cybercrime.pos = { x: -400, y: -400 };
+  lockedComp.pos = { x: -400, y: -400 };
+  lockedComp.pos = { x: -400, y: -400 };
+}
 
 function draw() {
   // Set up the screen
@@ -512,7 +596,7 @@ function showScreenWin() {
     let imgX = 650 / 2 - lockedComp.width / 2;
     let imgY = height / 2 - lockedComp.height / 2 - 20;
     image(LockedComputerImg, imgX, imgY);
-    
+
     //Restart button
     fill(255);
     rect(width / 2 - 50, height / 2 + 120, 100, 40, 10);
@@ -543,7 +627,7 @@ function showScreenWin() {
     let imgX = 650 / 2 - lockedComp.width / 2;
     let imgY = height / 2 - lockedComp.height / 2 - 20;
     image(LockedComputerImg, imgX, imgY);
-    
+
     //Next button
     fill(255);
     rect(width / 2 - 50, height / 2 + 120, 100, 40, 10);
