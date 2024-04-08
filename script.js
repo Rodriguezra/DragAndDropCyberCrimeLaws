@@ -101,7 +101,6 @@ function mousePressed() {
         console.log("you win!");
         showScreenWin();
         screen = 3;
-        round2 = true;
         confirm = false;
       }
       else {
@@ -138,6 +137,34 @@ function mousePressed() {
       UnlawfulAccess.position = createVector(width / 2 + 110, height - (height / 3) + 95);
       //Question2Img.pos = { x: 190, y: 285 };
 
+    }
+  }
+
+  else if (screen == 5 && confirm && !cancel) {
+    if (mouseX > width / 2 + 20 && mouseX < width / 2 + 140 && mouseY > height / 2 + 250 && mouseY < height / 2 + 290) {
+      if (
+          dist(FraudAndDevices.x, FraudAndDevices.y, center1.x, center1.y) < 1 &&
+          dist(FraudAndComputers.x, FraudAndComputers.y, center2.x, center2.y) < 1 &&
+          dist(Communication.x, Communication.y, center3.x, center3.y) < 1 &&
+          dist(Interception.x, Interception.y, center4.x, center4.y) < 1 &&
+          dist(UnlawfulAccess.x, UnlawfulAccess.y, center5.x, center5.y) < 1
+      ) {
+        console.log("you win!");
+        round2 = true;
+        showScreenWin();
+        screen = 3;
+        confirm = false;
+      }
+      else {
+        console.log("you lose!");
+        showScreenLose();
+        screen = 4;
+        confirm = false;
+      }
+    }
+    else if (mouseX > width / 2 - 120 && mouseX < width / 2 && mouseY > height / 2 + 250 && mouseY < height / 2 + 290) {
+      confirm = false;
+      cancel = true;
     }
   }
 
@@ -708,7 +735,7 @@ function showScreenWin() {
     rect(width / 2 - 50, height / 2 + 120, 100, 40, 10);
     fill(0);
     textSize(20);
-    text("Restart", width / 2, height / 2 + 140);
+    text("Next", width / 2, height / 2 + 140);
   }
   else if (round2 === true) {
     //Move extra icons off screen when win page is up
@@ -739,7 +766,7 @@ function showScreenWin() {
     rect(width / 2 - 50, height / 2 + 120, 100, 40, 10);
     fill(0);
     textSize(20);
-    text("Next", width / 2, height / 2 + 140);
+    text("Restart", width / 2, height / 2 + 140);
   }
 
 }
