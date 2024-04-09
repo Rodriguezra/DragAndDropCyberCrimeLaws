@@ -223,15 +223,15 @@ function snapToCenter(card) {
 }
 
 function checkIfConfirm() {
-  let numSnapped = 0;
-  for (let card of cards) {
-    if ((card.x == center1.x && card.y == center1.y) || (card.x == center2.x && card.y == center2.y) || (card.x == center3.x && card.y == center3.y) || (card.x == center4.x && card.y == center4.y) || (card.x == center5.x && card.y == center5.y)) {
-      numSnapped++;
+    let numSnapped = 0;
+    for (let card of cards) {
+      if ((card.x == center1.x && card.y == center1.y) || (card.x == center2.x && card.y == center2.y) || (card.x == center3.x && card.y == center3.y) || (card.x == center4.x && card.y == center4.y) || (card.x == center5.x && card.y == center5.y)) {
+        numSnapped++;
+      }
     }
-  }
-  if (numSnapped == 5) {
-    confirm = true;
-  }
+    if (numSnapped == 5) {
+      confirm = true;
+    }
 }
 
 function preload() {
@@ -247,7 +247,7 @@ function preload() {
 
 
 
-  Question2Img = loadImage('assets/CyberLaws/2/Background.png');
+  Question2Img = loadImage('assets/CyberLaws/2/round2Question.png');
   illegalImg = loadImage('assets/CyberLaws/2/illegal_5.png');
   involves_2Img = loadImage('assets/CyberLaws/2/Involves_2.png');
   ProhibitsImg = loadImage('assets/CyberLaws/2/prohibitsM_3.png');
@@ -352,7 +352,7 @@ function round2Setup() {
   Cyberlaws = new Sprite(width / 2 - 80, 285);
   Cyberlaws.addImage(Question2Img);
   Cyberlaws.collider = 'k';
-  CyberlawsImg.resize(300, 0);
+  Question2Img.resize(300, 300);
 
   cards = new Group();
   cards.collider = 'k';
@@ -362,7 +362,7 @@ function round2Setup() {
   // Cybercrime.collider = 'k';
   // CybercrimeImg.resize(200, 0);
 
-  lockedOut = new Sprite(width / 2, 160 + 95);
+  lockedOut = new Sprite(width / 2 - 125, 160 + 125);
   lockedOut.addImage(Question2Img);
   lockedOut.collider = 'k';
   //LockedOutImg.resize(200,0);
@@ -376,33 +376,33 @@ function round2Setup() {
 
   FraudAndDevices = new cards.Sprite(width / 4 - 67, height - (height / 3) + 95);
   FraudAndDevices.addImage(illegalImg);
-  FraudAndDevices.scale = 0.6;
+  FraudAndDevices.scale = 0.5;
   cards[0] = FraudAndDevices;
   FraudAndDevices.originalPosition = createVector(width / 4 - 67, height - (height / 3) + 95);
 
-  FraudAndComputers = new cards.Sprite((width / 2 - 145), height - (height / 3) + 175);
+  FraudAndComputers = new cards.Sprite((width / 2 - 145), height - (height / 3) + 200);
   FraudAndComputers.addImage(involves_2Img);
-  FraudAndComputers.scale = 0.6;
+  FraudAndComputers.scale = 0.5;
   cards[1] = FraudAndComputers;
   FraudAndComputers.originalPosition = createVector(width / 2 - 145, height - (height / 3) + 175);
 
   Communication = new cards.Sprite(width / 2 - 60, height - (height / 3) + 95);
   Communication.addImage(ProhibitsImg);
-  Communication.scale = 0.6;
+  Communication.scale = 0.5;
   cards[2] = Communication;
-  Communication.originalPosition = createVector(width / 2 - 60, height - (height / 3) + 95);
+  Communication.originalPosition = createVector(width / 2 - 30, height - (height / 3) + 95);
 
   Interception = new cards.Sprite(width / 2 + 33, height - (height / 3) + 175);
   Interception.addImage(PossessionImg);
-  Interception.scale = 0.6;
+  Interception.scale = 0.5;
   cards[3] = Interception;
-  Interception.originalPosition = createVector(width / 2 + 33, height - (height / 3) + 175);
+  Interception.originalPosition = createVector(width / 2 + 60, height - (height / 3) + 175);
 
   UnlawfulAccess = new cards.Sprite(width / 2 + 110, height - (height / 3) + 95);
   UnlawfulAccess.addImage(unauthorizedImg);
-  UnlawfulAccess.scale = 0.6;
+  UnlawfulAccess.scale = 0.5;
   cards[4] = UnlawfulAccess;
-  UnlawfulAccess.originalPosition = createVector(width / 2 + 110, height - (height / 3) + 95);
+  UnlawfulAccess.originalPosition = createVector(width / 2 + 170, height - (height / 3) + 95);
 
 
   Communication.pos = { x: -100, y: -100 };
