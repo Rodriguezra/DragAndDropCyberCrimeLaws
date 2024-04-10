@@ -115,16 +115,6 @@ function mousePressed() {
       cancel = true;
     }
   }
-
-  //If on the game screen
-  if (screen === 2) {
-    // Check if the "Learn More" button is clicked
-    if (mouseX > width - 150 && mouseX < width - 10 && mouseY > height - 45 && mouseY < height - 10) {
-      // Display a link to a website for further learning
-      window.open('https://www.law.cornell.edu/uscode/text/18/part-I');
-    }
-  }
-
   else if (screen === 3) {// if on the instructions/restart/lose screen
     //press begin button or restart button pressed
     if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 120 && mouseY < height / 2 + 160) {
@@ -139,7 +129,6 @@ function mousePressed() {
 
     }
   }
-
   else if (screen == 5 && confirm && !cancel) {
     if (mouseX > width / 2 + 20 && mouseX < width / 2 + 140 && mouseY > height / 2 + 250 && mouseY < height / 2 + 290) {
       if (
@@ -168,6 +157,22 @@ function mousePressed() {
     }
   }
 
+  //If on the round 1 game screen
+  if (screen === 2) {
+    // Check if the "Learn More" button is clicked
+    if (mouseX > width - 150 && mouseX < width - 10 && mouseY > height - 45 && mouseY < height - 10) {
+      // Display a link to a website for further learning
+      window.open('https://www.oas.org/juridico/spanish/us_cyb_law_int_commun.pdf');
+    }
+  }
+  //If on the round 2 game screen
+  else if (screen === 5) {
+    // Check if the "Learn More" button is clicked
+    if (mouseX > width - 150 && mouseX < width - 10 && mouseY > height - 45 && mouseY < height - 10) {
+      // Display a link to a website for further learning
+      window.open('https://www.oas.org/juridico/spanish/us_cyb_law_int_commun.pdf');
+    }
+  }
 }
 
 
@@ -375,7 +380,7 @@ function round2Setup() {
 
 
   FraudAndDevices = new cards.Sprite(width / 4 - 67, height - (height / 3) + 95);
-  FraudAndDevices.addImage(illegalImg);
+  FraudAndDevices.addImage(PossessionImg);
   FraudAndDevices.scale = 0.5;
   cards[0] = FraudAndDevices;
   FraudAndDevices.originalPosition = createVector(width / 4 - 67, height - (height / 3) + 95);
@@ -393,13 +398,13 @@ function round2Setup() {
   Communication.originalPosition = createVector(width / 2 - 30, height - (height / 3) + 95);
 
   Interception = new cards.Sprite(width / 2 + 33, height - (height / 3) + 175);
-  Interception.addImage(PossessionImg);
+  Interception.addImage(unauthorizedImg);
   Interception.scale = 0.5;
   cards[3] = Interception;
   Interception.originalPosition = createVector(width / 2 + 60, height - (height / 3) + 175);
 
   UnlawfulAccess = new cards.Sprite(width / 2 + 110, height - (height / 3) + 95);
-  UnlawfulAccess.addImage(unauthorizedImg);
+  UnlawfulAccess.addImage(illegalImg);
   UnlawfulAccess.scale = 0.5;
   cards[4] = UnlawfulAccess;
   UnlawfulAccess.originalPosition = createVector(width / 2 + 170, height - (height / 3) + 95);
@@ -508,35 +513,9 @@ function draw() {
       snapToCenter(card);
     }
   }
-
-
-
-  checkIfConfirm();
-  //Check if we win!!!
-  if (confirm && !cancel) {
-    const c = color(0, 179, 115);
-    fill(c);
-    noStroke();
-    rect((width / 2) - 140, height / 2 + 205, 300, 100, 10);
-    fill(255);
-    textSize(20);
-    textAlign(LEFT);
-    text('Submit Answer?', width / 2 - 60, height - 80);
-    fill(255);
-    rect(width / 2 + 20, height / 2 + 250, 120, 40, 10);
-    fill(0);
-    textSize(17);
-    text("Submit", width / 2 + 52, height / 2 + 272);
-    fill(255);
-    rect(width / 2 - 120, height / 2 + 250, 120, 40, 10);
-    fill(0);
-    text("Cancel", width / 2 - 90, height / 2 + 272);
-  }
-
   else if (screen === 3) {
     showScreenWin();
   }
-
   else if (screen === 4) {
     showScreenLose();
   }
