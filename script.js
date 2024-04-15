@@ -8,6 +8,8 @@ let alphaValue = 0;
 let fadeSpeed = 5;
 let confirm = false;
 let cancel = false;
+let round2 = false;
+let gameNum = 1;
 
 //start = 0
 //instructions = 1
@@ -27,17 +29,43 @@ function setCardsoffScreen() {
   }
   else {
     Cybercrime.pos = { x: -100000, y: -200 };
-  }if (screen === 3) {
-    lockedComp.pos = { x: width / 2 + 10, y: 160 + 85 };
+  } if (screen === 3) {
+    lockedComp.pos = { x: -100000, y: -200 };
   }
   else {
     lockedComp.pos = { x: -100000, y: -200 };
   }
   if (screen === 4) {
-    lockedOut.pos = { x: width / 2, y: 160 + 85};
+    lockedOut.pos = { x: -100000, y: -200 };
   }
   else {
     lockedOut.pos = { x: -100000, y: -200 };
+  }
+
+  if (round2 === true) {
+    Communication.pos = { x: -100, y: -100 };
+    FraudAndComputers.pos = { x: -100, y: -100 };
+    FraudAndDevices.pos = { x: -100, y: -100 };
+    UnlawfulAccess.pos = { x: -100, y: -100 };
+    Interception.pos = { x: -100, y: -100 };
+    CyberlawsImg.pos = { x: -300, y: -300 }; //changed here
+    if (screen === 0) {
+      Cybercrime.pos = { x: width / 2, y: 160 + 95 };
+    }
+    else {
+      Cybercrime.pos = { x: -100000, y: -200 };
+    } if (screen === 3) {
+      lockedComp.pos = { x: -100000, y: -200 };
+    }
+    else {
+      lockedComp.pos = { x: -100000, y: -200 };
+    }
+    if (screen === 4) {
+      lockedOut.pos = { x: -100000, y: -200 };
+    }
+    else {
+      lockedOut.pos = { x: -100000, y: -200 };
+    }
   }
 }
 
@@ -49,7 +77,7 @@ function mousePressed() {
       screen = 1;
     }
   }
-  else if (screen === 1 || screen === 3 || screen == 4) {// if on the instructions/restart/lose screen
+  else if (screen === 1 || screen == 4) {// if on the instructions/restart/lose screen
     //press begin button or restart button pressed
     if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 120 && mouseY < height / 2 + 160) {
       screen = 2;
@@ -65,11 +93,11 @@ function mousePressed() {
   else if (screen == 2 && confirm && !cancel) {
     if (mouseX > width / 2 + 20 && mouseX < width / 2 + 140 && mouseY > height / 2 + 250 && mouseY < height / 2 + 290) {
       if (
-        dist(FraudAndDevices.x, FraudAndDevices.y, center1.x, center1.y) < 1 &&
-        dist(FraudAndComputers.x, FraudAndComputers.y, center2.x, center2.y) < 1 &&
-        dist(Communication.x, Communication.y, center3.x, center3.y) < 1 &&
-        dist(Interception.x, Interception.y, center4.x, center4.y) < 1 &&
-        dist(UnlawfulAccess.x, UnlawfulAccess.y, center5.x, center5.y) < 1
+          dist(FraudAndDevices.x, FraudAndDevices.y, center1.x, center1.y) < 1 &&
+          dist(FraudAndComputers.x, FraudAndComputers.y, center2.x, center2.y) < 1 &&
+          dist(Communication.x, Communication.y, center3.x, center3.y) < 1 &&
+          dist(Interception.x, Interception.y, center4.x, center4.y) < 1 &&
+          dist(UnlawfulAccess.x, UnlawfulAccess.y, center5.x, center5.y) < 1
       ) {
         console.log("you win!");
         showScreenWin();
@@ -88,14 +116,85 @@ function mousePressed() {
       cancel = true;
     }
   }
+  else if (screen === 3 && gameNum == 1) { // If on the instructions/restart/lose screen
+    // Press begin button or restart button pressed
+    console.log(gameNum);
+    if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 120 && mouseY < height / 2 + 160) {
+        gameNum++;  
+        screen = 5;
+        round2Setup();
+        // Set positions for round 2
+        FraudAndDevices.position = createVector(width / 4 - 67, height - (height / 3) + 95);
+        FraudAndComputers.position = createVector(width / 2 - 145, height - (height / 3) + 175);
+        Communication.position = createVector(width / 2 - 60, height - (height / 3) + 95);
+        Interception.position = createVector(width / 2 + 33, height - (height / 3) + 175);
+        UnlawfulAccess.position = createVector(width / 2 + 110, height - (height / 3) + 95);
+        lockedComp.position = createVector(-400,-400);
+        Cybercrime.position = createVector(-400,-400);
+    }
+}
+  else if (screen === 3) {
+    // Press begin button or restart button pressed
+    console.log("screen 3");
+    if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 120 && mouseY < height / 2 + 160) {
+        gameNum--;
+        screen = 2;
+        // Show question for round 1
+        setup();
+        showQ1();
+        // Set positions for round 1
+        FraudAndDevices.position = createVector(width / 4 - 67, height - (height / 3) + 95);
+        FraudAndComputers.position = createVector(width / 2 - 145, height - (height / 3) + 175);
+        Communication.position = createVector(width / 2 - 60, height - (height / 3) + 95);
+        Interception.position = createVector(width / 2 + 33, height - (height / 3) + 175);
+        UnlawfulAccess.position = createVector(width / 2 + 110, height - (height / 3) + 95);
+        // Set positions for other elements in round 1
+        Cyberlaws.pos = { x: 190, y: 285 };
+    }
 
-  //If on the game screen
+}
+  else if (screen == 5 && confirm && !cancel) {
+    if (mouseX > width / 2 + 20 && mouseX < width / 2 + 140 && mouseY > height / 2 + 250 && mouseY < height / 2 + 290) {
+      if (
+          dist(FraudAndDevices.x, FraudAndDevices.y, center1.x, center1.y) < 1 &&
+          dist(FraudAndComputers.x, FraudAndComputers.y, center2.x, center2.y) < 1 &&
+          dist(Communication.x, Communication.y, center3.x, center3.y) < 1 &&
+          dist(Interception.x, Interception.y, center4.x, center4.y) < 1 &&
+          dist(UnlawfulAccess.x, UnlawfulAccess.y, center5.x, center5.y) < 1
+      ) {
+        console.log("you win!");
+        round2 = true;
+        showScreenWin();
+        screen = 3;
+        confirm = false;
+      }
+      else {
+        console.log("you lose!");
+        showScreenLose();
+        screen = 4;
+        confirm = false;
+      }
+    }
+    else if (mouseX > width / 2 - 120 && mouseX < width / 2 && mouseY > height / 2 + 250 && mouseY < height / 2 + 290) {
+      confirm = false;
+      cancel = true;
+    }
+  }
+
+  //If on the round 1 game screen
   if (screen === 2) {
     // Check if the "Learn More" button is clicked
-    if (mouseX > width - 150 && mouseX < width - 10 && mouseY > height - 45 && mouseY < height - 10) 
-    {
+    if (mouseX > width - 150 && mouseX < width - 10 && mouseY > height - 45 && mouseY < height - 10) {
       // Display a link to a website for further learning
-      window.open('https://www.law.cornell.edu/uscode/text/18/part-I');
+      window.open('https://www.oas.org/juridico/spanish/us_cyb_law_int_commun.pdf');
+    }
+  }
+  //If on the round 2 game screen
+  else if (screen === 5) {
+    // Check if the "Learn More" button is clicked
+    if (mouseX > width - 150 && mouseX < width - 10 && mouseY > height - 45 && mouseY < height - 10) {
+      // Display a link to a website for further learning
+      window.open('https://www.oas.org/juridico/spanish/us_cyb_law_int_commun.pdf');
     }
   }
 }
@@ -153,15 +252,15 @@ function snapToCenter(card) {
 }
 
 function checkIfConfirm() {
-  let numSnapped = 0;
-  for (let card of cards) {
-    if ((card.x == center1.x && card.y == center1.y) || (card.x == center2.x && card.y == center2.y) || (card.x == center3.x && card.y == center3.y) || (card.x == center4.x && card.y == center4.y) || (card.x == center5.x && card.y == center5.y)) {
-      numSnapped++;
+    let numSnapped = 0;
+    for (let card of cards) {
+      if ((card.x == center1.x && card.y == center1.y) || (card.x == center2.x && card.y == center2.y) || (card.x == center3.x && card.y == center3.y) || (card.x == center4.x && card.y == center4.y) || (card.x == center5.x && card.y == center5.y)) {
+        numSnapped++;
+      }
     }
-  }
-  if (numSnapped == 5) {
-    confirm = true;
-  }
+    if (numSnapped == 5) {
+      confirm = true;
+    }
 }
 
 function preload() {
@@ -174,6 +273,16 @@ function preload() {
   CybercrimeImg = loadImage('assets/CyberLaws/1/Cybercrime.png');
   LockedComputerImg = loadImage('assets/CyberLaws/1/lockedComputer.png');
   LockedOutImg = loadImage('assets/CyberLaws/1/lockedout.png');
+
+
+
+  Question2Img = loadImage('assets/CyberLaws/2/round2Question.png');
+  illegalImg = loadImage('assets/CyberLaws/2/illegal_5.png');
+  involves_2Img = loadImage('assets/CyberLaws/2/Involves_2.png');
+  ProhibitsImg = loadImage('assets/CyberLaws/2/prohibitsM_3.png');
+  PossessionImg = loadImage('assets/CyberLaws/2/prohibitsP_1.png');
+  unauthorizedImg = loadImage('assets/CyberLaws/2/unauthorized_4.png');
+
 }
 
 function setup() {
@@ -201,16 +310,19 @@ function setup() {
   Cybercrime.addImage(CybercrimeImg);
   Cybercrime.collider = 'k';
   CybercrimeImg.resize(200, 0);
+  Cybercrime.pos = { x: -400, y: -400 };
 
   lockedOut = new Sprite(width / 2, 160 + 95);
   lockedOut.addImage(LockedOutImg);
   lockedOut.collider = 'k';
+  lockedOut.pos = { x: -400, y: -400 };
   //LockedOutImg.resize(200,0);
 
 
   lockedComp = new Sprite(width / 2, 160 + 95);
   lockedComp.addImage(LockedComputerImg);
   lockedComp.collider = 'k';
+  lockedComp.pos = { x: -400, y: -400 };
   //LockedComputerImg.resize(200,0);
 
 
@@ -253,7 +365,7 @@ function setup() {
   Cyberlaws.pos = { x: -200, y: -200 };
   Cybercrime.pos = { x: -400, y: -400 };
   lockedComp.pos = { x: -400, y: -400 };
-  lockedComp.pos = { x: -400, y: -400 };
+  lockedOut.pos = { x: -400, y: -400 };
 
   ////////////////////////////////////////////
   ////////////////// GAME 2 //////////////////
@@ -262,6 +374,61 @@ function setup() {
 
 }
 
+function round2Setup() {
+  center1 = createVector(545, 160);
+  center2 = createVector(545, 220);
+  center3 = createVector(545, 285);
+  center4 = createVector(545, 350);
+  center5 = createVector(545, 415);
+
+  Cyberlaws = new Sprite(width / 2 - 125, 160 + 125);
+  Cyberlaws.addImage(Question2Img);
+  Cyberlaws.collider = 'k';
+  Question2Img.resize(300, 300);
+
+  cards = new Group();
+  cards.collider = 'k';
+
+  FraudAndDevices = new cards.Sprite(width / 4 - 67, height - (height / 3) + 95);
+  FraudAndDevices.addImage(PossessionImg);
+  FraudAndDevices.scale = 0.5;
+  cards[0] = FraudAndDevices;
+  FraudAndDevices.originalPosition = createVector(width / 4 - 67, height - (height / 3) + 95);
+
+  FraudAndComputers = new cards.Sprite((width / 2 - 145), height - (height / 3) + 200);
+  FraudAndComputers.addImage(involves_2Img);
+  FraudAndComputers.scale = 0.5;
+  cards[1] = FraudAndComputers;
+  FraudAndComputers.originalPosition = createVector(width / 2 - 145, height - (height / 3) + 175);
+
+  Communication = new cards.Sprite(width / 2 - 60, height - (height / 3) + 95);
+  Communication.addImage(ProhibitsImg);
+  Communication.scale = 0.5;
+  cards[2] = Communication;
+  Communication.originalPosition = createVector(width / 2 - 30, height - (height / 3) + 95);
+
+  Interception = new cards.Sprite(width / 2 + 33, height - (height / 3) + 175);
+  Interception.addImage(unauthorizedImg);
+  Interception.scale = 0.5;
+  cards[3] = Interception;
+  Interception.originalPosition = createVector(width / 2 + 60, height - (height / 3) + 175);
+
+  UnlawfulAccess = new cards.Sprite(width / 2 + 110, height - (height / 3) + 95);
+  UnlawfulAccess.addImage(illegalImg);
+  UnlawfulAccess.scale = 0.5;
+  cards[4] = UnlawfulAccess;
+  UnlawfulAccess.originalPosition = createVector(width / 2 + 170, height - (height / 3) + 95);
+
+
+  Communication.pos = { x: -100, y: -100 };
+  FraudAndComputers.pos = { x: -100, y: -100 };
+  FraudAndDevices.pos = { x: -100, y: -100 };
+  Interception.pos = { x: -100, y: -100 };
+  UnlawfulAccess.pos = { x: -100, y: -100 };
+  Cybercrime.pos = { x: -400, y: -400 };
+  lockedComp.pos = { x: -400, y: -400 };
+  lockedOut.pos = { x: -400, y: -400 };
+}
 
 function draw() {
   // Set up the screen
@@ -276,6 +443,15 @@ function draw() {
     showInstructionScreen();
   }
   else if (screen === 2) {
+    showQ1();
+  }
+  else if (screen === 3) {
+    showScreenWin();
+  }
+  else if (screen === 4) {
+    showScreenLose();
+  }
+  else if (screen === 5) {
     // Define the text content
     // Set text properties
     const c = color(0, 179, 115);
@@ -288,7 +464,7 @@ function draw() {
     noStroke();
     fill(0);
     textAlign(CENTER, TOP); // Text alignment
-    text("The following image provided shows several US federal laws related to cybercrimes. Rearrange the list so that each law matches its correct description.", 30, 20, 600, 360);
+    text("Match the federal U.S. laws with their general definition. (Derived from slides from Dr. Wilson's Penetration Testing course at UF)", 30, 20, 600, 360);
 
     // Learn More Button Border
     stroke(255);
@@ -312,11 +488,11 @@ function draw() {
 
     fill(255);
     noStroke();
-    circle (center1.x, center1.y, 35);
-    circle (center2.x, center2.y, 35);
-    circle (center3.x, center3.y, 35);
-    circle (center4.x, center4.y, 35);
-    circle (center5.x, center5.y, 35);
+    circle(center1.x, center1.y, 35);
+    circle(center2.x, center2.y, 35);
+    circle(center3.x, center3.y, 35);
+    circle(center4.x, center4.y, 35);
+    circle(center5.x, center5.y, 35);
 
     fill(0);
     noStroke();
@@ -377,14 +553,87 @@ function draw() {
     fill(0);
     text("Cancel", width / 2 - 90, height / 2 + 272);
   }
+}
 
-  else if (screen === 3) {
-    showScreenWin();
-  }
+function showQ1() {
+  // Define the text content
+    // Set text properties
+    const c = color(0, 179, 115);
+    stroke(0);
+    strokeWeight(1);
+    fill(255);
+    rect(20, 10, 620, 74, 10);
+    // Display text content
+    textSize(12);
+    noStroke();
+    fill(0);
+    textAlign(CENTER, TOP); // Text alignment
+    text("The following image provided shows several US federal laws related to cybercrimes. Rearrange the list so that each law matches its correct description.", 30, 20, 600, 360);
 
-  else if (screen === 4) {
-    showScreenLose();
-  }
+    // Learn More Button Border
+    stroke(255);
+    strokeWeight(2);
+    fill(255);
+    rect(width - 150, height - 45, 140, 40, 10);
+    // Learn More Button
+    noStroke();
+    fill(c);
+    rect(width - 150 + 1, height - 45 + 1, 138, 38, 10);       // Learn More Button Text
+    fill(255);
+    textSize(16);
+    textAlign(CENTER, CENTER);
+    text("Learn More", width - 80, height - 25);
+
+    fill(c);
+    rect(20, 100, 620, 370, 10);
+
+    fill(255);
+    rect(40, 120, 310, 330, 10);
+
+    fill(255);
+    noStroke();
+    circle(center1.x, center1.y, 35);
+    circle(center2.x, center2.y, 35);
+    circle(center3.x, center3.y, 35);
+    circle(center4.x, center4.y, 35);
+    circle(center5.x, center5.y, 35);
+
+    fill(0);
+    noStroke();
+    textSize(24);
+    textAlign(CENTER);
+    text("1", center1.x - 1, center1.y + 2);
+    text("2", center2.x, center2.y + 2);
+    text("3", center3.x, center3.y + 2);
+    text("4", center4.x, center4.y + 2);
+    text("5", center5.x, center5.y + 2);
+
+    strokeWeight(5);
+    stroke(0);
+    line(365, center1.y, 440, center1.y);
+    line(430, center1.y - 10, 440, center1.y);
+    line(430, center1.y + 10, 440, center1.y);
+
+    line(365, center2.y, 440, center2.y);
+    line(430, center2.y - 10, 440, center2.y);
+    line(430, center2.y + 10, 440, center2.y);
+
+    line(365, center3.y, 440, center3.y);
+    line(430, center3.y - 10, 440, center3.y);
+    line(430, center3.y + 10, 440, center3.y);
+
+    line(365, center4.y, 440, center4.y);
+    line(430, center4.y - 10, 440, center4.y);
+    line(430, center4.y + 10, 440, center4.y);
+
+    line(365, center5.y, 440, center5.y);
+    line(430, center5.y - 10, 440, center5.y);
+    line(430, center5.y + 10, 440, center5.y);
+
+    for (let card of cards) {
+      handleDragging(card);
+      snapToCenter(card);
+    }
 }
 
 function showStartScreen() {
@@ -397,7 +646,7 @@ function showStartScreen() {
   textSize(32); // Font size
   textAlign(CENTER, CENTER); // Text alignment
   text("Cybercrime Laws\n\n", width / 2, height / 2 - 200);
-  
+
   // Instructions button
   fill(255);
   noStroke();
@@ -446,36 +695,69 @@ function showInstructionScreen() {
 }
 
 function showScreenWin() {
-  //Move extra icons off screen when win page is up
-  const c = color(0, 179, 115);
-  background(c);
-  setCardsoffScreen();
+
+  if (gameNum == 1) {
+    //Move extra icons off screen when win page is up
+    const c = color(0, 179, 115);
+    background(c);
+    setCardsoffScreen();
 
 
-  //Set text properties
-  fill(255, alphaValue);
-  textSize(32);
-  textAlign(CENTER, CENTER);
-  text("You Win!\n\nThanks for playing!", width / 2, height / 2 - 200);
+    //Set text properties
+    fill(255, alphaValue);
+    textSize(32);
+    textAlign(CENTER, CENTER);
+    text("You Win this round!\n\nContinue to next round!", width / 2, height / 2 - 200);
 
-  //Animate alpha value for fading effect
-  alphaValue += fadeSpeed;
-  if (alphaValue > 255 || alphaValue < 0) {
-    fadeSpeed *= -1; //Reverse the fade direction
+    //Animate alpha value for fading effect
+    alphaValue += fadeSpeed;
+    if (alphaValue > 255 || alphaValue < 0) {
+      fadeSpeed *= -1; //Reverse the fade direction
+    }
+
+    //Display the secure computer image
+    let imgX = 650 / 2 - lockedComp.width / 2;
+    let imgY = height / 2 - lockedComp.height / 2 - 20;
+    image(LockedComputerImg, imgX, imgY);
+
+    //Restart button
+    fill(255);
+    rect(width / 2 - 50, height / 2 + 120, 100, 40, 10);
+    fill(0);
+    textSize(20);
+    text("Next", width / 2, height / 2 + 140);
   }
+  else if (gameNum != 1) {
+    //Move extra icons off screen when win page is up
+    const c = color(0, 179, 115);
+    background(c);
+    setCardsoffScreen();
 
-  //Display the secure computer image
-  let imgX = 650 / 2 - lockedComp.width / 2;
-  let imgY = height / 2 - lockedComp.height / 2 - 20;
-  image(LockedComputerImg, imgX, imgY);
 
-  //Restart button
-  fill(255);
-  rect(width / 2 - 50, height / 2 + 120, 100, 40, 10);
-  fill(0);
-  textSize(20);
-  text("Restart", width / 2, height / 2 + 140);
+    //Set text properties
+    fill(255, alphaValue);
+    textSize(32);
+    textAlign(CENTER, CENTER);
+    text("You Win!\n\nThanks for playing!", width / 2, height / 2 - 200);
 
+    //Animate alpha value for fading effect
+    alphaValue += fadeSpeed;
+    if (alphaValue > 255 || alphaValue < 0) {
+      fadeSpeed *= -1; //Reverse the fade direction
+    }
+
+    //Display the secure computer image
+    let imgX = 650 / 2 - lockedComp.width / 2;
+    let imgY = height / 2 - lockedComp.height / 2 - 20;
+    image(LockedComputerImg, imgX, imgY);
+
+    //Next button
+    fill(255);
+    rect(width / 2 - 50, height / 2 + 120, 100, 40, 10);
+    fill(0);
+    textSize(20);
+    text("Restart", width / 2, height / 2 + 140);
+  }
 
 }
 
