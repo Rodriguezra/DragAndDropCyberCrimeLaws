@@ -119,8 +119,8 @@ function mousePressed() {
   else if (screen === 3 && gameNum == 1) { // If on the instructions/restart/lose screen
     // Press begin button or restart button pressed
     console.log(gameNum);
-    gameNum++;
     if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 120 && mouseY < height / 2 + 160) {
+        gameNum++;  
         screen = 5;
         round2Setup();
         // Set positions for round 2
@@ -136,8 +136,8 @@ function mousePressed() {
   else if (screen === 3) {
     // Press begin button or restart button pressed
     console.log("screen 3");
-    gameNum--;
     if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 120 && mouseY < height / 2 + 160) {
+        gameNum--;
         screen = 2;
         // Show question for round 1
         setup();
