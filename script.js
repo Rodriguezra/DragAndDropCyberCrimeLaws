@@ -16,6 +16,7 @@ let gameNum = 1;
 //game = 2
 //restart = 3
 //lose = 4
+//second question = 5
 
 function setCardsoffScreen() {
   Communication.pos = { x: -100, y: -100 };
@@ -153,6 +154,8 @@ function mousePressed() {
     }
 
 }
+
+  //If on the round 2 game screen
   else if (screen == 5 && confirm && !cancel) {
     if (mouseX > width / 2 + 20 && mouseX < width / 2 + 140 && mouseY > height / 2 + 250 && mouseY < height / 2 + 290) {
       if (
@@ -381,6 +384,7 @@ function round2Setup() {
   center4 = createVector(545, 350);
   center5 = createVector(545, 415);
 
+  //variable names unchanged
   Cyberlaws = new Sprite(width / 2 - 125, 160 + 125);
   Cyberlaws.addImage(Question2Img);
   Cyberlaws.collider = 'k';
